@@ -1,0 +1,112 @@
+{
+  "section": {
+    "title": "Selected Projects",
+    "subtitle": "Explore a curated selection of innovative projects I've designed and developed, showcasing creativity, performance, and modern technology solutions."
+  },
+  "projects": [
+    {
+      "id": 1,
+      "name": "WebGate",
+      "category": "Marketplace & VTU Services",
+      "status": "Live",
+      "client": "CHUZYTECH",
+      "year": "2026",
+      "description": "Everything You Need, All in One Place. Enjoy cheap data, airtime, electricity and TV payments, educational services, and buy or sell items on our Marketplace all in one place with WebGate, Your Marketplace & VTU Services.",
+      "technologies": [
+        "HTML5",
+        "Bootstrap 5",
+        "JavaScript",
+        "JSON"
+      ],
+      "image": "images/webgate.jpg",
+      "url": "https://www.sabuss.com/webgate7",
+      "buttonText": "Visit Website"
+    },
+    {
+      "id": 2,
+      "name": "CHUZYTECH Portfolio",
+      "category": "Portfolio Website",
+      "status": "Live",
+      "client": "CHUZYTECH",
+      "year": "2026",
+      "description": "A premium responsive portfolio showcasing professional projects, technical expertise, services, and creative solutions with a modern user experience.",
+      "technologies": [
+        "HTML5",
+        "CSS3",
+        "Bootstrap 5",
+        "JavaScript"
+      ],
+      "image": "images/chuzytech2.jpg",
+      "url": "https://chuzytech.github.io/chuzytech-webpage/",
+      "buttonText": "Visit Website"
+    },
+    {
+      "id": 3,
+      "name": "Voxmack",
+      "category": "Music & Entertainment",
+      "status": "Live",
+      "client": "Private Client",
+      "year": "2025",
+      "description": "A modern entertainment platform for discovering, promoting, and celebrating music, arts, movies, and talented artists while keeping music lovers connected to the latest entertainment trends.",
+      "technologies": [
+        "HTML5",
+        "Bootstrap",
+        "JavaScript"
+      ],
+      "image": "images/voxmack2.png",
+      "url": "https://voxmack.com",
+      "buttonText": "Visit Website"
+    },
+    {
+      "id": 4,
+      "name": "FeliTech Portfolio",
+      "category": "Portfolio Website",
+      "status": "Live",
+      "client": "FeliTech",
+      "year": "2026",
+      "description": "A clean, responsive portfolio website featuring a modern UI/UX design that highlights professional skills, achievements, and projects.",
+      "technologies": [
+        "HTML5",
+        "Bootstrap 5",
+        "JavaScript"
+      ],
+      "image": "images/felitech.png",
+      "url": "https://chuzytech.github.io/utom_felix_ottah/",
+      "buttonText": "Visit Website"
+    },
+    {
+      "id": 5,
+      "name": "Voxmellow",
+      "category": "Music & Entertainment",
+      "status": "Live",
+      "client": "Voxmellow",
+      "year": "2026",
+      "description": "A music and entertainment platform for discovering and promoting fresh sounds, trending songs, rising artists, and the latest entertainment gist, connecting Naija music with global vibes.",
+      "technologies": [
+        "HTML5",
+        "Bootstrap",
+        "JavaScript"
+      ],
+      "image": "images/voxmellow.png",
+      "url": "https://www.voxmellow.com",
+      "buttonText": "Visit Website"
+    },
+    {
+      "id": 6,
+      "name": "BishopChuks Technology",
+      "category": "VTU & E-Commerce Services",
+      "status": "In Development",
+      "client": "BishopChuks Technology",
+      "year": "2026",
+      "description": "With BishopChuks Technology, enjoy cheap data, airtime, bill payments, educational services, VTU & e-commerce services, and buy or sell on our Marketplace.",
+      "technologies": [
+        "HTML5",
+        "Bootstrap 5",
+        "JavaScript"
+      ],
+      "image": "images/bishopechuks-technology.jpg",
+      "url": "https://voxmack.com",
+      "buttonText": "Visit Website"
+    }
+  ]
+}
