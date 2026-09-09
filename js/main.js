@@ -405,36 +405,94 @@ form.addEventListener("submit", function (e) {
 
 
 /* ==========================================================
- CHUZYTECH PREMIUM GALLERY
- ========================================================== */
+   CHUZYTECH PREMIUM GALLERY
+   WITH LIGHTBOX SLIDER
+========================================================== */
 
 (() => {
 
-  const galleryContainer = document.getElementById("gallery-container");
-  const galleryTitle = document.getElementById("gallery-title");
-  const gallerySubtitle = document.getElementById("gallery-subtitle");
-  const toggleBtn = document.getElementById("galleryToggleBtn");
+  const galleryContainer =
+    document.getElementById("gallery-container");
 
-  const lightbox = document.getElementById("galleryLightbox");
-  const lightboxImg = document.getElementById("galleryLightboxImg");
-  const caption = document.getElementById("galleryCaption");
-  const closeBtn = document.querySelector(".gallery-close");
+  const galleryTitle =
+    document.getElementById("gallery-title");
+
+  const gallerySubtitle =
+    document.getElementById("gallery-subtitle");
+
+  const toggleBtn =
+    document.getElementById("galleryToggleBtn");
+
+  const lightbox =
+    document.getElementById("galleryLightbox");
+
+  const lightboxImg =
+    document.getElementById("galleryLightboxImg");
+
+  const caption =
+    document.getElementById("galleryCaption");
+
+  const counter =
+    document.getElementById("galleryCounter");
+
+  const closeBtn =
+    document.querySelector(".gallery-close");
+
+  const prevBtn =
+    document.getElementById("galleryPrev");
+
+  const nextBtn =
+    document.getElementById("galleryNext");
+
+
+  /* =====================================================
+     CHECK REQUIRED ELEMENTS
+  ===================================================== */
 
   if (
     !galleryContainer ||
     !galleryTitle ||
     !gallerySubtitle ||
-    !toggleBtn
-  ) return;
+    !toggleBtn ||
+    !lightbox ||
+    !lightboxImg ||
+    !caption ||
+    !closeBtn ||
+    !prevBtn ||
+    !nextBtn
+  ) {
+
+    return;
+
+  }
+
+
+  /* =====================================================
+     VARIABLES
+  ===================================================== */
 
   let galleryItems = [];
+
   let expanded = false;
 
+  let currentIndex = 0;
+
+
+  /* =====================================================
+     LOAD GALLERY JSON
+  ===================================================== */
+
   fetch("data/gallery.json")
+
     .then(response => {
 
-      if (!response.ok)
-        throw new Error("Unable to load gallery.json");
+      if (!response.ok) {
+
+        throw new Error(
+          "Unable to load gallery.json"
+        );
+
+      }
 
       return response.json();
 
@@ -442,10 +500,14 @@ form.addEventListener("submit", function (e) {
 
     .then(data => {
 
-      galleryTitle.textContent = data.section.title;
-      gallerySubtitle.textContent = data.section.subtitle;
+      galleryTitle.textContent =
+        data.section.title;
 
-      galleryItems = data.gallery;
+      gallerySubtitle.textContent =
+        data.section.subtitle;
+
+      galleryItems =
+        data.gallery;
 
       renderGallery();
 
@@ -455,61 +517,83 @@ form.addEventListener("submit", function (e) {
 
       console.error(error);
 
-      galleryContainer.innerHTML =
-        `<div class="col-12 text-center text-danger">
-                    Failed to load gallery.
-                </div>`;
+      galleryContainer.innerHTML = `
+        <div class="col-12 text-center text-danger">
+          Failed to load gallery.
+        </div>
+      `;
 
     });
+
+
+  /* =====================================================
+     RENDER GALLERY
+  ===================================================== */
 
   function renderGallery() {
 
     let html = "";
 
+
     galleryItems.forEach((item, index) => {
 
-      const hidden = (!expanded && index >= 4)
-        ? "gallery-hidden"
-        : "";
+      const hidden =
+        (!expanded && index >= 4)
+          ? "gallery-hidden"
+          : "";
+
 
       html += `
 
-            <div class="col-sm-6 col-lg-3 ${hidden}">
+        <div class="col-sm-6 col-lg-3 ${hidden}">
 
-                <div class="gallery-card"
-                     data-image="${item.image}"
-                     data-title="${item.title}">
+          <div
+            class="gallery-card"
+            data-index="${index}"
+            data-image="${item.image}"
+            data-title="${item.title}"
+          >
 
-                    <img
-                        src="${item.image}"
-                        alt="${item.alt}"
-                        loading="lazy">
+            <img
+              src="${item.image}"
+              alt="${item.alt}"
+              loading="lazy"
+            >
 
-                    <div class="gallery-overlay">
+            <div class="gallery-overlay">
 
-                        <span class="gallery-badge">
-                            ${item.category}
-                        </span>
+              <span class="gallery-badge">
+                ${item.category}
+              </span>
 
-                        <h5>${item.title}</h5>
-
-                    </div>
-
-                </div>
+              <h5>
+                ${item.title}
+              </h5>
 
             </div>
 
-            `;
+          </div>
+
+        </div>
+
+      `;
 
     });
 
+
     galleryContainer.innerHTML = html;
+
 
     attachCardEvents();
 
     updateButton();
 
   }
+
+
+  /* =====================================================
+     VIEW ALL / VIEW LESS
+  ===================================================== */
 
   function updateButton() {
 
@@ -521,46 +605,59 @@ form.addEventListener("submit", function (e) {
 
     }
 
+
     toggleBtn.innerHTML = expanded
+
       ? '<i class="fas fa-chevron-up me-2"></i> View Less'
+
       : '<i class="fas fa-images me-2"></i> View All';
 
   }
 
-  toggleBtn.addEventListener("click", () => {
 
-    expanded = !expanded;
+  toggleBtn.addEventListener(
+    "click",
+    () => {
 
-    renderGallery();
+      expanded = !expanded;
 
-    if (!expanded) {
+      renderGallery();
 
-      document.getElementById("gallery")
-        .scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
+
+      if (!expanded) {
+
+        document
+          .getElementById("gallery")
+          .scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+          });
+
+      }
 
     }
+  );
 
-  });
+
+  /* =====================================================
+     ATTACH CARD EVENTS
+  ===================================================== */
 
   function attachCardEvents() {
 
-    document.querySelectorAll("#gallery .gallery-card")
+    document
+      .querySelectorAll("#gallery .gallery-card")
       .forEach(card => {
 
         card.onclick = () => {
 
-          lightbox.style.display = "flex";
+          const index =
+            Number(card.dataset.index);
 
-          lightboxImg.src =
-            card.dataset.image;
-
-          caption.textContent =
-            card.dataset.title;
-
-          document.body.style.overflow = "hidden";
+          openLightbox(index);
 
         };
 
@@ -568,37 +665,338 @@ form.addEventListener("submit", function (e) {
 
   }
 
-  closeBtn.onclick = closeLightbox;
 
-  lightbox.onclick = function (e) {
+  /* =====================================================
+     OPEN LIGHTBOX
+  ===================================================== */
 
-    if (e.target === lightbox) {
+  function openLightbox(index) {
 
-      closeLightbox();
+    if (!galleryItems.length) return;
+
+
+    currentIndex = index;
+
+
+    showCurrentImage();
+
+
+    lightbox.style.display = "flex";
+
+
+    document.body.style.overflow =
+      "hidden";
+
+  }
+
+
+  /* =====================================================
+     SHOW CURRENT IMAGE
+  ===================================================== */
+
+  function showCurrentImage() {
+
+    const item =
+      galleryItems[currentIndex];
+
+
+    if (!item) return;
+
+
+    lightboxImg.src =
+      item.image;
+
+
+    lightboxImg.alt =
+      item.alt || item.title;
+
+
+    caption.textContent =
+      item.title || "";
+
+
+    counter.textContent =
+      `${currentIndex + 1} / ${galleryItems.length}`;
+
+
+    /* Restart animation */
+
+    lightboxImg.style.animation =
+      "none";
+
+    void lightboxImg.offsetWidth;
+
+    lightboxImg.style.animation =
+      "galleryImageZoom .3s ease";
+
+  }
+
+
+  /* =====================================================
+     NEXT IMAGE
+  ===================================================== */
+
+  function nextImage() {
+
+    if (!galleryItems.length) return;
+
+
+    currentIndex++;
+
+
+    if (
+      currentIndex >= galleryItems.length
+    ) {
+
+      currentIndex = 0;
 
     }
 
-  };
 
-  document.addEventListener("keydown", function (e) {
+    showCurrentImage();
 
-    if (e.key === "Escape") {
+  }
 
-      closeLightbox();
+
+  /* =====================================================
+     PREVIOUS IMAGE
+  ===================================================== */
+
+  function previousImage() {
+
+    if (!galleryItems.length) return;
+
+
+    currentIndex--;
+
+
+    if (currentIndex < 0) {
+
+      currentIndex =
+        galleryItems.length - 1;
 
     }
 
-  });
+
+    showCurrentImage();
+
+  }
+
+
+  /* =====================================================
+     NEXT BUTTON
+  ===================================================== */
+
+  nextBtn.addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      nextImage();
+
+    }
+  );
+
+
+  /* =====================================================
+     PREVIOUS BUTTON
+  ===================================================== */
+
+  prevBtn.addEventListener(
+    "click",
+    event => {
+
+      event.stopPropagation();
+
+      previousImage();
+
+    }
+  );
+
+
+  /* =====================================================
+     CLOSE BUTTON
+  ===================================================== */
+
+  closeBtn.addEventListener(
+    "click",
+    closeLightbox
+  );
+
+
+  /* =====================================================
+     CLICK OUTSIDE IMAGE
+  ===================================================== */
+
+  lightbox.addEventListener(
+    "click",
+    event => {
+
+      if (event.target === lightbox) {
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     KEYBOARD CONTROLS
+  ===================================================== */
+
+  document.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        lightbox.style.display !== "flex"
+      ) {
+
+        return;
+
+      }
+
+
+      /* RIGHT ARROW */
+
+      if (event.key === "ArrowRight") {
+
+        nextImage();
+
+      }
+
+
+      /* LEFT ARROW */
+
+      if (event.key === "ArrowLeft") {
+
+        previousImage();
+
+      }
+
+
+      /* ESC */
+
+      if (event.key === "Escape") {
+
+        closeLightbox();
+
+      }
+
+    }
+  );
+
+
+  /* =====================================================
+     MOBILE SWIPE
+  ===================================================== */
+
+  let touchStartX = 0;
+
+  let touchEndX = 0;
+
+
+  lightbox.addEventListener(
+    "touchstart",
+    event => {
+
+      touchStartX =
+        event.changedTouches[0].screenX;
+
+    },
+    { passive: true }
+  );
+
+
+  lightbox.addEventListener(
+    "touchend",
+    event => {
+
+      touchEndX =
+        event.changedTouches[0].screenX;
+
+
+      const swipeDistance =
+        touchEndX - touchStartX;
+
+
+      /* SWIPE LEFT */
+
+      if (swipeDistance < -50) {
+
+        nextImage();
+
+      }
+
+
+      /* SWIPE RIGHT */
+
+      if (swipeDistance > 50) {
+
+        previousImage();
+
+      }
+
+    },
+    { passive: true }
+  );
+
+
+  /* =====================================================
+     CLOSE LIGHTBOX
+  ===================================================== */
 
   function closeLightbox() {
 
-    lightbox.style.display = "none";
+    lightbox.style.display =
+      "none";
 
-    document.body.style.overflow = "";
+
+    document.body.style.overflow =
+      "";
 
   }
 
 })();
+
+
+// The important part for phones is this section:
+
+lightbox.addEventListener(
+  "touchstart",
+  event => {
+    touchStartX =
+      event.changedTouches[0].screenX;
+  },
+  { passive: true }
+);
+
+lightbox.addEventListener(
+  "touchend",
+  event => {
+
+    touchEndX =
+      event.changedTouches[0].screenX;
+
+    const swipeDistance =
+      touchEndX - touchStartX;
+
+    if (swipeDistance < -50) {
+      nextImage();
+    }
+
+    if (swipeDistance > 50) {
+      previousImage();
+    }
+
+  },
+  { passive: true }
+);
+
+//
 
 card.innerHTML = `
 
@@ -658,7 +1056,7 @@ ${project.year}
 
 <div class="portfolio-tech">
 
-${project.technologies.map(t=>`<span>${t}</span>`).join("")}
+${project.technologies.map(t => `<span>${t}</span>`).join("")}
 
 </div>
 
@@ -678,6 +1076,8 @@ ${project.buttonText}
 
 `;
 
-// CERTIFICATE CODE
+// 
+
+
 
 
