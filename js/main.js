@@ -154,6 +154,81 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+
+
+/* =====================================================
+   CHUZYTECH MOBILE MENU
+   HAMBURGER ☰ → X
+   AUTO-CLOSE WHEN MENU ITEM IS CLICKED
+===================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const mobileToggle = document.getElementById("mobileMenuToggle");
+  const navMenu = document.getElementById("navMenu");
+
+  if (!mobileToggle || !navMenu) return;
+
+
+  /* ================================================
+     CLOSE MENU WHEN ANY NAVIGATION ITEM IS CLICKED
+  ================================================= */
+
+  navMenu.querySelectorAll("a").forEach(link => {
+
+    link.addEventListener("click", () => {
+
+      if (window.innerWidth <= 991) {
+
+        const collapse =
+          bootstrap.Collapse.getInstance(navMenu) ||
+          new bootstrap.Collapse(navMenu, {
+            toggle: false
+          });
+
+        collapse.hide();
+
+      }
+
+    });
+
+  });
+
+
+  /* ================================================
+     KEEP TOGGLE ICON IN SYNC WITH BOOTSTRAP
+  ================================================= */
+
+  navMenu.addEventListener("shown.bs.collapse", () => {
+
+    mobileToggle.classList.remove("collapsed");
+    mobileToggle.setAttribute("aria-expanded", "true");
+
+  });
+
+
+  navMenu.addEventListener("hidden.bs.collapse", () => {
+
+    mobileToggle.classList.add("collapsed");
+    mobileToggle.setAttribute("aria-expanded", "false");
+
+  });
+
+
+  /* ================================================
+     START WITH HAMBURGER ICON
+  ================================================= */
+
+  if (!navMenu.classList.contains("show")) {
+
+    mobileToggle.classList.add("collapsed");
+    mobileToggle.setAttribute("aria-expanded", "false");
+
+  }
+
+});
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const counters = document.querySelectorAll(".counter");
 
@@ -406,7 +481,7 @@ form.addEventListener("submit", function (e) {
 
 /* ==========================================================
    CHUZYTECH PREMIUM GALLERY
-   WITH LIGHTBOX SLIDER
+   FAST LOADING + RESPONSIVE IMAGES
 ========================================================== */
 
 (() => {
@@ -445,53 +520,31 @@ form.addEventListener("submit", function (e) {
     document.getElementById("galleryNext");
 
 
-  /* =====================================================
-     CHECK REQUIRED ELEMENTS
-  ===================================================== */
-
   if (
     !galleryContainer ||
     !galleryTitle ||
     !gallerySubtitle ||
-    !toggleBtn ||
-    !lightbox ||
-    !lightboxImg ||
-    !caption ||
-    !closeBtn ||
-    !prevBtn ||
-    !nextBtn
-  ) {
+    !toggleBtn
+  ) return;
 
-    return;
-
-  }
-
-
-  /* =====================================================
-     VARIABLES
-  ===================================================== */
 
   let galleryItems = [];
-
   let expanded = false;
-
   let currentIndex = 0;
 
+  let touchStartX = 0;
+  let touchEndX = 0;
 
-  /* =====================================================
+
+  /* ======================================================
      LOAD GALLERY JSON
-  ===================================================== */
+  ====================================================== */
 
   fetch("data/gallery.json")
-
     .then(response => {
 
       if (!response.ok) {
-
-        throw new Error(
-          "Unable to load gallery.json"
-        );
-
+        throw new Error("Unable to load gallery.json");
       }
 
       return response.json();
@@ -507,7 +560,9 @@ form.addEventListener("submit", function (e) {
         data.section.subtitle;
 
       galleryItems =
-        data.gallery;
+        Array.isArray(data.gallery)
+          ? data.gallery
+          : [];
 
       renderGallery();
 
@@ -518,22 +573,21 @@ form.addEventListener("submit", function (e) {
       console.error(error);
 
       galleryContainer.innerHTML = `
-        <div class="col-12 text-center text-danger">
-          Failed to load gallery.
-        </div>
-      `;
+                <div class="col-12 text-center text-danger">
+                    Failed to load gallery.
+                </div>
+            `;
 
     });
 
 
-  /* =====================================================
+  /* ======================================================
      RENDER GALLERY
-  ===================================================== */
+  ====================================================== */
 
   function renderGallery() {
 
     let html = "";
-
 
     galleryItems.forEach((item, index) => {
 
@@ -543,46 +597,67 @@ form.addEventListener("submit", function (e) {
           : "";
 
 
+      /*
+       * First 4 images:
+       * Load immediately because they are visible.
+       *
+       * Remaining images:
+       * Lazy-load for better performance.
+       */
+
+      const loading =
+        index < 4
+          ? "eager"
+          : "lazy";
+
+
+      const priority =
+        index < 4
+          ? 'fetchpriority="high"'
+          : '';
+
+
       html += `
 
-        <div class="col-sm-6 col-lg-3 ${hidden}">
+                <div class="col-12 col-sm-6 col-lg-3 ${hidden}">
 
-          <div
-            class="gallery-card"
-            data-index="${index}"
-            data-image="${item.image}"
-            data-title="${item.title}"
-          >
+                    <div
+                        class="gallery-card"
+                        data-index="${index}"
+                        data-image="${item.image}"
+                        data-title="${item.title}"
+                    >
 
-            <img
-              src="${item.image}"
-              alt="${item.alt}"
-              loading="lazy"
-            >
+                        <img
+                            src="${item.image}"
+                            alt="${item.alt || item.title}"
+                            loading="${loading}"
+                            ${priority}
+                            decoding="async"
+                        >
 
-            <div class="gallery-overlay">
+                        <div class="gallery-overlay">
 
-              <span class="gallery-badge">
-                ${item.category}
-              </span>
+                            <span class="gallery-badge">
+                                ${item.category}
+                            </span>
 
-              <h5>
-                ${item.title}
-              </h5>
+                            <h5>
+                                ${item.title}
+                            </h5>
 
-            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-      `;
+            `;
 
     });
 
 
     galleryContainer.innerHTML = html;
-
 
     attachCardEvents();
 
@@ -591,9 +666,9 @@ form.addEventListener("submit", function (e) {
   }
 
 
-  /* =====================================================
+  /* ======================================================
      VIEW ALL / VIEW LESS
-  ===================================================== */
+  ====================================================== */
 
   function updateButton() {
 
@@ -602,49 +677,43 @@ form.addEventListener("submit", function (e) {
       toggleBtn.style.display = "none";
 
       return;
-
     }
 
 
+    toggleBtn.style.display = "inline-block";
+
+
     toggleBtn.innerHTML = expanded
-
       ? '<i class="fas fa-chevron-up me-2"></i> View Less'
-
       : '<i class="fas fa-images me-2"></i> View All';
 
   }
 
 
-  toggleBtn.addEventListener(
-    "click",
-    () => {
+  toggleBtn.addEventListener("click", () => {
 
-      expanded = !expanded;
+    expanded = !expanded;
 
-      renderGallery();
+    renderGallery();
 
 
-      if (!expanded) {
+    if (!expanded) {
 
-        document
-          .getElementById("gallery")
-          .scrollIntoView({
-
-            behavior: "smooth",
-
-            block: "start"
-
-          });
-
-      }
+      document
+        .getElementById("gallery")
+        .scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
 
     }
-  );
+
+  });
 
 
-  /* =====================================================
-     ATTACH CARD EVENTS
-  ===================================================== */
+  /* ======================================================
+     OPEN LIGHTBOX
+  ====================================================== */
 
   function attachCardEvents() {
 
@@ -654,10 +723,10 @@ form.addEventListener("submit", function (e) {
 
         card.onclick = () => {
 
-          const index =
+          currentIndex =
             Number(card.dataset.index);
 
-          openLightbox(index);
+          openLightbox();
 
         };
 
@@ -666,45 +735,48 @@ form.addEventListener("submit", function (e) {
   }
 
 
-  /* =====================================================
-     OPEN LIGHTBOX
-  ===================================================== */
-
-  function openLightbox(index) {
-
-    if (!galleryItems.length) return;
-
-
-    currentIndex = index;
-
-
-    showCurrentImage();
-
+  function openLightbox() {
 
     lightbox.style.display = "flex";
 
+    document.body.style.overflow = "hidden";
 
-    document.body.style.overflow =
-      "hidden";
+    showImage(currentIndex);
 
   }
 
 
-  /* =====================================================
-     SHOW CURRENT IMAGE
-  ===================================================== */
+  /* ======================================================
+     SHOW IMAGE
+  ====================================================== */
 
-  function showCurrentImage() {
+  function showImage(index) {
+
+    if (!galleryItems.length) return;
+
+
+    currentIndex =
+      (index + galleryItems.length)
+      % galleryItems.length;
+
 
     const item =
       galleryItems[currentIndex];
 
 
-    if (!item) return;
+    /*
+     * Preload the selected image before displaying it.
+     */
 
+    const imageLoader = new Image();
 
-    lightboxImg.src =
-      item.image;
+    imageLoader.onload = () => {
+
+      lightboxImg.src = item.image;
+
+    };
+
+    imageLoader.src = item.image;
 
 
     lightboxImg.alt =
@@ -712,128 +784,74 @@ form.addEventListener("submit", function (e) {
 
 
     caption.textContent =
-      item.title || "";
+      item.title;
 
 
     counter.textContent =
       `${currentIndex + 1} / ${galleryItems.length}`;
 
-
-    /* Restart animation */
-
-    lightboxImg.style.animation =
-      "none";
-
-    void lightboxImg.offsetWidth;
-
-    lightboxImg.style.animation =
-      "galleryImageZoom .3s ease";
-
   }
 
 
-  /* =====================================================
+  /* ======================================================
      NEXT IMAGE
-  ===================================================== */
+  ====================================================== */
 
   function nextImage() {
 
-    if (!galleryItems.length) return;
-
-
-    currentIndex++;
-
-
-    if (
-      currentIndex >= galleryItems.length
-    ) {
-
-      currentIndex = 0;
-
-    }
-
-
-    showCurrentImage();
+    showImage(currentIndex + 1);
 
   }
 
 
-  /* =====================================================
+  /* ======================================================
      PREVIOUS IMAGE
-  ===================================================== */
+  ====================================================== */
 
   function previousImage() {
 
-    if (!galleryItems.length) return;
-
-
-    currentIndex--;
-
-
-    if (currentIndex < 0) {
-
-      currentIndex =
-        galleryItems.length - 1;
-
-    }
-
-
-    showCurrentImage();
+    showImage(currentIndex - 1);
 
   }
 
 
-  /* =====================================================
-     NEXT BUTTON
-  ===================================================== */
+  if (nextBtn) {
 
-  nextBtn.addEventListener(
-    "click",
-    event => {
+    nextBtn.addEventListener(
+      "click",
+      nextImage
+    );
 
-      event.stopPropagation();
-
-      nextImage();
-
-    }
-  );
+  }
 
 
-  /* =====================================================
-     PREVIOUS BUTTON
-  ===================================================== */
+  if (prevBtn) {
 
-  prevBtn.addEventListener(
-    "click",
-    event => {
+    prevBtn.addEventListener(
+      "click",
+      previousImage
+    );
 
-      event.stopPropagation();
-
-      previousImage();
-
-    }
-  );
+  }
 
 
-  /* =====================================================
-     CLOSE BUTTON
-  ===================================================== */
+  /* ======================================================
+     CLOSE LIGHTBOX
+  ====================================================== */
 
-  closeBtn.addEventListener(
-    "click",
-    closeLightbox
-  );
+  if (closeBtn) {
 
+    closeBtn.onclick =
+      closeLightbox;
 
-  /* =====================================================
-     CLICK OUTSIDE IMAGE
-  ===================================================== */
+  }
+
 
   lightbox.addEventListener(
     "click",
-    event => {
+    e => {
 
-      if (event.target === lightbox) {
+      if (e.target === lightbox) {
 
         closeLightbox();
 
@@ -843,44 +861,43 @@ form.addEventListener("submit", function (e) {
   );
 
 
-  /* =====================================================
-     KEYBOARD CONTROLS
-  ===================================================== */
+  function closeLightbox() {
+
+    lightbox.style.display = "none";
+
+    document.body.style.overflow = "";
+
+  }
+
+
+  /* ======================================================
+     KEYBOARD NAVIGATION
+  ====================================================== */
 
   document.addEventListener(
     "keydown",
-    event => {
+    e => {
 
       if (
         lightbox.style.display !== "flex"
-      ) {
-
-        return;
-
-      }
+      ) return;
 
 
-      /* RIGHT ARROW */
-
-      if (event.key === "ArrowRight") {
+      if (e.key === "ArrowRight") {
 
         nextImage();
 
       }
 
 
-      /* LEFT ARROW */
-
-      if (event.key === "ArrowLeft") {
+      if (e.key === "ArrowLeft") {
 
         previousImage();
 
       }
 
 
-      /* ESC */
-
-      if (event.key === "Escape") {
+      if (e.key === "Escape") {
 
         closeLightbox();
 
@@ -890,21 +907,16 @@ form.addEventListener("submit", function (e) {
   );
 
 
-  /* =====================================================
+  /* ======================================================
      MOBILE SWIPE
-  ===================================================== */
-
-  let touchStartX = 0;
-
-  let touchEndX = 0;
-
+  ====================================================== */
 
   lightbox.addEventListener(
     "touchstart",
-    event => {
+    e => {
 
       touchStartX =
-        event.changedTouches[0].screenX;
+        e.changedTouches[0].screenX;
 
     },
     { passive: true }
@@ -913,88 +925,46 @@ form.addEventListener("submit", function (e) {
 
   lightbox.addEventListener(
     "touchend",
-    event => {
+    e => {
 
       touchEndX =
-        event.changedTouches[0].screenX;
+        e.changedTouches[0].screenX;
 
-
-      const swipeDistance =
-        touchEndX - touchStartX;
-
-
-      /* SWIPE LEFT */
-
-      if (swipeDistance < -50) {
-
-        nextImage();
-
-      }
-
-
-      /* SWIPE RIGHT */
-
-      if (swipeDistance > 50) {
-
-        previousImage();
-
-      }
+      handleSwipe();
 
     },
     { passive: true }
   );
 
 
-  /* =====================================================
-     CLOSE LIGHTBOX
-  ===================================================== */
-
-  function closeLightbox() {
-
-    lightbox.style.display =
-      "none";
-
-
-    document.body.style.overflow =
-      "";
-
-  }
-
-})();
-
-
-// The important part for phones is this section:
-
-lightbox.addEventListener(
-  "touchstart",
-  event => {
-    touchStartX =
-      event.changedTouches[0].screenX;
-  },
-  { passive: true }
-);
-
-lightbox.addEventListener(
-  "touchend",
-  event => {
-
-    touchEndX =
-      event.changedTouches[0].screenX;
+  function handleSwipe() {
 
     const swipeDistance =
       touchEndX - touchStartX;
 
-    if (swipeDistance < -50) {
+
+    /* Minimum swipe distance */
+
+    if (Math.abs(swipeDistance) < 50) {
+      return;
+    }
+
+
+    if (swipeDistance < 0) {
+
       nextImage();
-    }
 
-    if (swipeDistance > 50) {
+    } else {
+
       previousImage();
+
     }
 
-  },
-  { passive: true }
-);
+  }
+
+
+})();
+
 
 //
 
