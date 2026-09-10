@@ -142,18 +142,165 @@ p {
 }
 
 
-/* Modern Hamburger Toggle */
-.navbar-toggler-icon i {
-    transition: all 0.3s ease;
+/* =====================================================
+   CHUZYTECH — COMPACT MOBILE MENU TOGGLE
+   MOBILE ONLY
+===================================================== */
+
+/* Hidden on desktop */
+#mobileMenuToggle {
+    display: none !important;
 }
 
-.navbar-toggler.collapsed .navbar-toggler-icon i {
-    transform: rotate(0deg);
+@media (max-width: 991px) {
+
+    /* Small, centered toggle button */
+    #mobileMenuToggle {
+        display: flex !important;
+
+        width: 32px;
+        height: 32px;
+
+        padding: 0;
+        margin-left: 6px;
+
+        border: none !important;
+        outline: none !important;
+        box-shadow: none !important;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 7px;
+
+        /* background: rgba(0, 0, 0, 0.65); */
+
+        transition: all 0.3s ease;
+    }
+
+
+    /* Center the hamburger perfectly */
+    #mobileMenuToggle .menu-icon {
+        width: 17px;
+        height: 14px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        position: relative;
+    }
+
+
+    /* Three hamburger lines */
+    #mobileMenuToggle .menu-icon span {
+        display: block;
+
+        width: 17px;
+        height: 2px;
+
+        border-radius: 10px;
+
+        /* background: #fff; */
+        background: rgba(0, 0, 0, 0.65);
+
+        transition:
+            transform 0.3s ease,
+            opacity 0.2s ease;
+    }
+
+
+    /* =================================================
+       OPEN — ☰ → ✕
+    ================================================= */
+
+    #mobileMenuToggle:not(.collapsed) {
+        /* background: #ffc107; */
+    }
+
+    #mobileMenuToggle:not(.collapsed) .menu-icon span {
+        background: #111;
+    }
+
+
+    #mobileMenuToggle:not(.collapsed) .menu-icon span:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+
+
+    #mobileMenuToggle:not(.collapsed) .menu-icon span:nth-child(2) {
+        opacity: 0;
+    }
+
+
+    #mobileMenuToggle:not(.collapsed) .menu-icon span:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+
+
+    /* =================================================
+       MOBILE MENU
+    ================================================= */
+
+    #navMenu {
+        margin-top: 7px;
+    }
+
+    #navMenu .navbar-nav {
+        padding: 0.7rem;
+        border-radius: 10px;
+    }
+
+    #navMenu .nav-link {
+        margin-left: 0;
+        padding: 9px 8px;
+        font-size: 0.93rem;
+    }
+
+
+    /* =================================================
+       EXTRA SMALL PHONES — 320px
+    ================================================= */
+
+    @media (max-width: 375px) {
+
+        #mobileMenuToggle {
+            width: 30px;
+            height: 30px;
+
+            margin-left: 4px;
+        }
+
+        #mobileMenuToggle .menu-icon {
+            width: 16px;
+            height: 13px;
+        }
+
+        #mobileMenuToggle .menu-icon span {
+            width: 16px;
+            height: 2px;
+        }
+
+        #mobileMenuToggle:not(.collapsed) .menu-icon span:nth-child(1) {
+            transform: translateY(5.5px) rotate(45deg);
+        }
+
+        #mobileMenuToggle:not(.collapsed) .menu-icon span:nth-child(3) {
+            transform: translateY(-5.5px) rotate(-45deg);
+        }
+
+        #navMenu .navbar-nav {
+            padding: 0.6rem;
+        }
+
+        #navMenu .nav-link {
+            padding: 8px 7px;
+            font-size: 0.9rem;
+        }
+    }
 }
 
-.navbar-toggler:not(.collapsed) .navbar-toggler-icon i {
-    transform: rotate(90deg);
-}
 
 /* Active link styling */
 .nav-link.active {
@@ -1105,6 +1252,202 @@ p {
     padding: 60px 80px 80px;
 
 }
+
+
+/* ============================================================
+   CHUZYTECH PREMIUM GALLERY
+   EQUAL SIZE CARDS + FULL IMAGE DISPLAY
+   PROTECTED FROM OTHER CSS
+============================================================ */
+
+
+/* ============================================================
+   GALLERY CARD
+   EVERY CARD HAS EXACTLY THE SAME SIZE
+============================================================ */
+
+#gallery#gallery .gallery-card {
+    position: relative !important;
+
+    width: 100% !important;
+
+    /*
+       All cards use the same aspect ratio.
+       This automatically keeps every card equal.
+    */
+    aspect-ratio: 4 / 3 !important;
+
+    overflow: hidden !important;
+
+    border-radius: 20px !important;
+
+    background: #ffffff !important;
+
+    cursor: pointer !important;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.08) !important;
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease !important;
+}
+
+
+/* ============================================================
+   IMAGE
+   SAME DISPLAY AREA FOR EVERY IMAGE
+   COMPLETE IMAGE — NO CROPPING
+============================================================ */
+
+#gallery#gallery .gallery-card>img {
+    display: block !important;
+
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    /*
+       CONTAIN keeps the entire original image visible.
+       Nothing will be cropped.
+    */
+    object-fit: contain !important;
+
+    object-position: center center !important;
+
+    background: #FFF4A3 !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: none !important;
+
+    image-rendering: auto !important;
+
+    transition: transform 0.5s ease !important;
+}
+
+
+/* ============================================================
+   DESKTOP
+============================================================ */
+
+@media (min-width: 993px) {
+
+    #gallery#gallery .gallery-card {
+        aspect-ratio: 4 / 3 !important;
+    }
+
+}
+
+
+/* ============================================================
+   TABLET
+============================================================ */
+
+@media (min-width: 577px) and (max-width: 992px) {
+
+    #gallery#gallery .gallery-card {
+        aspect-ratio: 4 / 3 !important;
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+============================================================ */
+
+@media (min-width: 376px) and (max-width: 576px) {
+
+    #gallery#gallery .gallery-card {
+        aspect-ratio: 4 / 3 !important;
+    }
+
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES — 320px+
+============================================================ */
+
+@media (min-width: 320px) and (max-width: 375px) {
+
+    #gallery#gallery .gallery-card {
+        aspect-ratio: 4 / 3 !important;
+    }
+
+}
+
+
+/* ============================================================
+   HOVER EFFECT
+============================================================ */
+
+@media (hover: hover) {
+
+    #gallery#gallery .gallery-card:hover {
+        transform: translateY(-8px) !important;
+
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    #gallery#gallery .gallery-card:hover>img {
+        transform: scale(1.04) !important;
+    }
+
+}
+
+
+/* ============================================================
+   TOUCH DEVICES
+============================================================ */
+
+@media (hover: none) {
+
+    #gallery#gallery .gallery-card {
+        transform: none !important;
+    }
+
+    #gallery#gallery .gallery-card>img {
+        transform: none !important;
+    }
+
+}
+
+
+/* ============================================================
+   EXTRA PROTECTION
+   Prevents other image rules from changing the size
+============================================================ */
+
+#gallery#gallery .gallery-card img,
+#gallery#gallery .gallery-card>img,
+#gallery#gallery img.gallery-image {
+    width: 100% !important;
+    height: 100% !important;
+
+    max-width: 100% !important;
+    max-height: 100% !important;
+
+    object-fit: contain !important;
+    object-position: center center !important;
+}
+
+
+/* ============================================================
+   PREVENT OLD FIXED-HEIGHT RULES FROM AFFECTING CARDS
+============================================================ */
+
+#gallery#gallery .gallery-card {
+    min-height: 0 !important;
+    max-height: none !important;
+}
+
+
 
 
 /* MAIN IMAGE */
