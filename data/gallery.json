@@ -1,0 +1,260 @@
+{
+    "section": {
+        "title": "Gallery",
+        "subtitle": "A showcase of creative visuals and designs crafted by me."
+    },
+    "gallery": [
+        {
+            "id": 1,
+            "image": "images/chuzytech2.jpg",
+            "title": "CHUZYTECH",
+            "alt": "CHUZYTECH BRAD 1",
+            "category": "Logo"
+        },
+        {
+            "id": 2,
+            "image": "images/unique_peanut bugger_plantain_chips.png",
+            "title": "UNIUE PEANUT BUGGER & PLANTAIN CHIPS",
+            "alt": "UNIUE PEANUT BUGGER & PLANTAIN CHIPS",
+            "category": "Branding"
+        },
+        {
+            "id": 3,
+            "image": "images/young_boys_fc.png",
+            "title": "YOUNG BOYS FC",
+            "alt": "YOUNG BOYS FC",
+            "category": "Branding"
+        },
+        {
+            "id": 4,
+            "image": "images/DMG_xpeters_service_ltd.png",
+            "title": "DMG XPETERS SERVICE LTD",
+            "alt": "DMG XPETERS SERVICE LTD",
+            "category": "Branding"
+        },
+        {
+            "id": 5,
+            "image": "images/young-image.jpg",
+            "title": "YOUNG IMAGE",
+            "alt": "YOUNG IMAGE",
+            "category": "Branding"
+        },
+        {
+            "id": 6,
+            "image": "images/de-youg-fc.jpg",
+            "title": "DE YOUNG FC",
+            "alt": "DE YOUNG FC",
+            "category": "Sports"
+        },
+        {
+            "id": 7,
+            "image": "images/de-jonny-best.jpg",
+            "title": "D-JONNY BEST",
+            "alt": "D-JONNY BEST",
+            "category": "Branding"
+        },
+        {
+            "id": 8,
+            "image": "images/leo.jpg",
+            "title": "LEO",
+            "alt": "LEO",
+            "category": "Branding"
+        },
+        {
+            "id": 9,
+            "image": "images/eagles-eye-entertainment.png",
+            "title": "EAGLES EYE",
+            "alt": "ENTERTAINMENT",
+            "category": "Branding"
+        },
+        {
+            "id": 10,
+            "image": "images/elite_old_boys.jpg",
+            "title": "ETC 2015 ELITE OLD BOYS",
+            "alt": "ETC 2015 ELITE OLD BOYS",
+            "category": "Branding"
+        },
+        {
+            "id": 12,
+            "image": "images/emmy_best.jpg",
+            "title": "EMMY BEST ELECTRICAL SOLUTION",
+            "alt": "EMMY BEST ELECTRICAL SOLUTION",
+            "category": "Branding"
+        },
+        {
+            "id": 16,
+            "image": "images/nkalu_united_fc.jpg",
+            "title": "NKALU UNITED FC",
+            "alt": "NKALU UNITED FC",
+            "category": "Branding"
+        },
+        {
+            "id": 17,
+            "image": "images/mad-cash.jpg",
+            "title": "MAD CASH MUSIC ENTERTAINMENT",
+            "alt": "MAD CASH MUSIC ENTERTAINMENT",
+            "category": "Branding"
+        },
+        {
+            "id": 18,
+            "image": "images/unique-hair-costimestic.png",
+            "title": "UNIQUE",
+            "alt": "UNIQUE",
+            "category": "Branding"
+        },
+        {
+            "id": 19,
+            "image": "images/viva-atelier's.png",
+            "title": "VIVA ATELIER'S",
+            "alt": "VIVA ATELIER'S",
+            "category": "Branding"
+        },
+        {
+            "id": 20,
+            "image": "images/voxmack1.jpg",
+            "title": "VOXMACK MUSIC ENTERTAINMENT",
+            "alt": "VOXMACK MUSIC ENTERTAINMENT",
+            "category": "Branding"
+        },
+        {
+            "id": 21,
+            "image": "images/webgate2.jpg",
+            "title": "WEBGATE",
+            "alt": "WEBGATE",
+            "category": "Branding"
+        },
+        {
+            "id": 22,
+            "image": "images/voxmellow_2.jpg",
+            "title": "VOXMELLOW MUSIC ENTERTAINMENT",
+            "alt": "VOXMELLOW MUSIC ENTERTAINMENT",
+            "category": "Branding"
+        },
+        {
+            "id": 23,
+            "image": "images/elux_construction_and_engineering_services-_limited.png",
+            "title": "ELUX CONSTRUCTION & ENGIGEERING SERVICES LIMITED",
+            "alt": "ELUX CONSTRUCTION & ENGIGEERING SERVICES LIMITED",
+            "category": "Branding"
+        },
+        {
+            "id": 24,
+            "image": "images/DMG_xami_service_ltd.png",
+            "title": "DMG XAMI SERVICE LTD",
+            "alt": "DMG XAMI SERVICE LTD",
+            "category": "Branding"
+        },
+        {
+            "id": 25,
+            "image": "images/bishopechuks-technology.jpg",
+            "title": "BISHOPCHUKS TECHNOLOGY",
+            "alt": "BISHOPCHUKS TECHNOLOGY",
+            "category": "Branding"
+        },
+        {
+            "id": 26,
+            "image": "images/techsolution_T-shirt.jpg",
+            "title": "TECHSOLUTIONCRIB T-SHIRT",
+            "alt": "TECHSOLUTIONCRIB T-SHIRT",
+            "category": "Branding"
+        },
+        {
+            "id": 27,
+            "image": "images/bishopechuks-technology2.png",
+            "title": "BISHOPCHUKS TECHNOLOGY",
+            "alt": "BISHOPCHUKS TECHNOLOGY",
+            "category": "Branding"
+        },
+        {
+            "id": 28,
+            "image": "images/chuzytech_T-shirt.png",
+            "title": "CHUZYTECH T-SHIRT",
+            "alt": "CHUZYTECH T-SHIRT",
+            "category": "Branding"
+        },
+        {
+            "id": 29,
+            "image": "images/chuzytech_front_polo002.png",
+            "title": "CHUZYTECH BRAND POLO THE FRONTSIDE",
+            "alt": "CHUZYTECH BRAND POLO THE FRONTSIDE",
+            "category": "Branding"
+        },
+        {
+            "id": 30,
+            "image": "images/chuzytech_back_polo002.png",
+            "title": "CHUZYTECH BRAND POLO THE BACKSIDE",
+            "alt": "CHUZYTECH BRAND POLO THE BACKSIDE",
+            "category": "Branding"
+        },
+        {
+            "id": 31,
+            "image": "images/chuzytech_front_polo001.png",
+            "title": "CHUZYTECH BRAND POLO THE FRONTSIDE",
+            "alt": "CHUZYTECH BRAND FRONT POLO",
+            "category": "Branding"
+        },
+        {
+            "id": 32,
+            "image": "images/chuzytech_back_polo001.png",
+            "title": "CHUZYTECH BRAND2 POLO THE BACKSIDE",
+            "alt": "CHUZYTECH BRAND POLO THE BACKSIDE",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/comicnaija.png",
+            "title": "COMICNAIJA",
+            "alt": "COMICNAIJA",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/chuzytech.png",
+            "title": "CHUZYTECH",
+            "alt": "CHUZYTECH",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/chuzytech_brand.png",
+            "title": "CHUZYTECH BRAND",
+            "alt": "CHUZYTECH BRAND",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/chuzytech_brand_cap.png",
+            "title": "CHUZYTECH BRAND CAP",
+            "alt": "CHUZYTECH BRAND CAP",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/princess_amy_comedy.png",
+            "title": "PRINCESS AMY COMEDY",
+            "alt": "PRINCESS AMY COMEDY",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/padded_man_comedy.png",
+            "title": "PADDED MAN COMEDY",
+            "alt": "PADDED MAN COMEDY",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/arlie_of_kalaba's kitchen.png",
+            "title": "ARLIE OF KALABA'S KITCHEN",
+            "alt": "ARLIE OF KALABA'S KITCHEN",
+            "category": "Branding"
+        },
+        {
+            "id": 34,
+            "image": "images/pri_amaka.png",
+            "title": "PRI AMAKA",
+            "alt": "PRI AMAKA",
+            "category": "Branding"
+        }
+    ]
+}
