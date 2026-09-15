@@ -37,7 +37,8 @@ body {
     font-size: 1rem;
     line-height: 1.7;
     color: #333;
-    background-color: #E7E9EB;
+    /* background-color: #E7E9EB; */
+    background-color: #D9EEE1;
 }
 
 /* =====================================================
@@ -648,7 +649,6 @@ p {
         display: block;
     }
 }
-
 
 /* ABOUT AVATAR CODE */
 .about-avatar {
