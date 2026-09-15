@@ -965,9 +965,15 @@ form.addEventListener("submit", function (e) {
 
 })();
 
+//
+const img = document.createElement("img");
+
+img.src = item.image;
+img.alt = item.title;
+
+img.classList.add("rounded-4", "w-100");
 
 //
-
 card.innerHTML = `
 
 <div class="portfolio-card">
